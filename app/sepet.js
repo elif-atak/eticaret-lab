@@ -11,9 +11,12 @@ import {
   Alert
 } from 'react-native';
 
+import { useRouter } from 'expo-router';
 import { useSepet } from '../context/SepetContext';
 
 export default function Sepet() {
+  const router = useRouter();
+
   const {
     sepet,
     urunSil,
@@ -22,6 +25,10 @@ export default function Sepet() {
     toplamAdet,
     toplamTutar
   } = useSepet();
+
+  const anaSayfayaDon = () => {
+    router.replace('/');
+  };
 
   const silmeOnayi = (id) => {
     Alert.alert(
@@ -53,6 +60,15 @@ export default function Sepet() {
         <Text style={styles.bosAciklama}>
           Henüz sepetinize ürün eklemediniz.
         </Text>
+
+        <Pressable
+          style={styles.anaSayfaButon}
+          onPress={anaSayfayaDon}
+        >
+          <Text style={styles.anaSayfaButonYazi}>
+            ← Alışverişe Devam Et
+          </Text>
+        </Pressable>
       </View>
     );
   }
@@ -137,6 +153,15 @@ export default function Sepet() {
             ${toplamTutar.toFixed(2)}
           </Text>
         </View>
+
+        <Pressable
+          style={styles.anaSayfaButon}
+          onPress={anaSayfayaDon}
+        >
+          <Text style={styles.anaSayfaButonYazi}>
+            ← Alışverişe Devam Et
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -244,11 +269,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#8B68B5'
   },
+  anaSayfaButon: {
+    backgroundColor: '#A78BCE',
+    padding: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 12
+  },
+  anaSayfaButonYazi: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
   bosSepet: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FDF7FB'
+    backgroundColor: '#FDF7FB',
+    padding: 20
   },
   bosIkon: {
     fontSize: 55,
@@ -262,6 +300,7 @@ const styles = StyleSheet.create({
   },
   bosAciklama: {
     fontSize: 15,
-    color: '#968BA5'
+    color: '#968BA5',
+    textAlign: 'center'
   }
 });
